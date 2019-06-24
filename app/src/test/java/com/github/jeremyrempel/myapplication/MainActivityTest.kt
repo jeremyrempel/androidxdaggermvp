@@ -16,7 +16,7 @@ class MainActivityTest {
 
         scenario.onActivity {
             val result = it.findViewById<TextView>(R.id.textView).text
-            assertEquals("Banana", result)
+            assertEquals("ViewModel", result)
         }
     }
 }
