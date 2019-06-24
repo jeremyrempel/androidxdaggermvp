@@ -14,6 +14,7 @@ class ModelFragmentModel @Inject constructor(
     private val isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
+        // call async service with callbacks
         myService.getData(data::setValue, ::handleError)
     }
 
