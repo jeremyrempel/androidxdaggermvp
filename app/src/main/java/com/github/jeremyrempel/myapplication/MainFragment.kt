@@ -14,6 +14,9 @@ import com.github.jeremyrempel.myapplication.factory.MyModelFactory
 import com.github.jeremyrempel.myapplication.viewmodel.ModelFragmentModel
 import javax.inject.Inject
 
+/**
+ * MainFragment with factory
+ */
 class MainFragment
 @Inject constructor(
     private val factory: ViewModelProvider.Factory
@@ -33,7 +36,7 @@ class MainFragment
         })
 
         model.isLoading().observe(this, Observer {
-            val visibility = if(it) View.GONE else View.VISIBLE
+            val visibility = if (it) View.GONE else View.VISIBLE
             requireView().findViewById<View>(R.id.loadingView).visibility = visibility
         })
     }

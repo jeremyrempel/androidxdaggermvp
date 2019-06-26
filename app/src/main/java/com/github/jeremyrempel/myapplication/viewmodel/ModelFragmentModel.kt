@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.github.jeremyrempel.myapplication.service.MyService
 import javax.inject.Inject
 
+/**
+ * ViewModel with Async service
+ */
 class ModelFragmentModel @Inject constructor(
     myService: MyService
 ) : ViewModel() {
