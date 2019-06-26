@@ -1,6 +1,7 @@
 package com.github.jeremyrempel.myapplication
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.jeremyrempel.myapplication.viewmodel.ModelFactory
+import com.github.jeremyrempel.myapplication.fake.FakeViewModelFactory
 import com.github.jeremyrempel.myapplication.viewmodel.ModelFragmentModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -28,41 +29,42 @@ class JvmModelFragmentTest {
     fun setUp() = MockKAnnotations.init(this)
 
     @Test
-    fun `test fragment update data`() {
+    fun `testFragmentUpdateData`() {
 
         every { fakeViewModel.isLoading() } returns MutableLiveData(false)
         every { fakeViewModel.getData() } returns MutableLiveData("Hello World from Mock")
 
-        launchFragmentInContainer<ModelFragment>(
+        launchFragmentInContainer<MainFragment>(
             Bundle.EMPTY,
             R.style.FragmentScenarioEmptyFragmentActivityTheme,
             FragFactoryFake(fakeViewModel)
         )
 
-        onView(withId(R.id.textView)).check(matches(withText("Hello World from Mock")))
+        onView(withId(R.id.textView))
+            .check(matches(withText("Hello World from Mock")))
     }
 
     @Test
-    fun `test fragment show loader`() {
+    fun `testFragmentShowLoader`() {
         every { fakeViewModel.isLoading() } returns MutableLiveData(true)
         every { fakeViewModel.getData() } returns MutableLiveData()
 
-        launchFragmentInContainer<ModelFragment>(
+        launchFragmentInContainer<MainFragment>(
             Bundle.EMPTY,
             R.style.FragmentScenarioEmptyFragmentActivityTheme,
             FragFactoryFake(fakeViewModel)
         )
 
-        onView(withId(R.id.textView)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.loadingView)).check(matches(withEffectiveVisibility(Visibility.GONE)))
+        onView(withId(R.id.textView))
+            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+        onView(withId(R.id.loadingView))
+            .check(matches(withEffectiveVisibility(Visibility.GONE)))
     }
 
     internal class FragFactoryFake(private val viewModel: ViewModel) : FragmentFactory() {
-        override fun instantiate(classLoader: ClassLoader, className: String) =
-            ModelFragment(ModelFactoryFake(viewModel))
-    }
-
-    internal class ModelFactoryFake(private val viewModel: ViewModel) : ModelFactory() {
-        override fun <T : ViewModel?> create(modelClass: Class<T>) = viewModel as T
+        override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+            val fakeViewModelFactory = FakeViewModelFactory(viewModel)
+            return MainFragment(fakeViewModelFactory)
+        }
     }
 }

@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.github.jeremyrempel.myapplication.viewmodel.ModelFactory
+import com.github.jeremyrempel.myapplication.factory.MyModelFactory
 import com.github.jeremyrempel.myapplication.viewmodel.ModelFragmentModel
 import javax.inject.Inject
 
-class ModelFragment
+class MainFragment
 @Inject constructor(
-    private val factory: ModelFactory
+    private val factory: ViewModelProvider.Factory
 ) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

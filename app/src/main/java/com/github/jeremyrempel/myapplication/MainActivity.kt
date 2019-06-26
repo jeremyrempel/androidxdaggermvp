@@ -2,19 +2,15 @@ package com.github.jeremyrempel.myapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import com.github.jeremyrempel.myapplication.factory.FragFactory
-import com.github.jeremyrempel.myapplication.viewmodel.ModelFactory
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val dagger = DaggerFragmentComponent.create()
+        // init dagger graph
+        val dagger = DaggerMyComponent.create()
 
         // needs to be called after super.onCreate
-        val fragFactory = FragFactory(dagger)
-        supportFragmentManager.fragmentFactory = fragFactory
+        supportFragmentManager.fragmentFactory = dagger.fragFactory()
 
         super.onCreate(savedInstanceState)
 
@@ -22,9 +18,9 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
-                val frag = fragFactory.instantiate(
+                val frag = supportFragmentManager.fragmentFactory.instantiate(
                     classLoader,
-                    ModelFragment::class.java.canonicalName
+                    MainFragment::class.java.canonicalName
                 )
                 this.add(R.id.frag_container, frag)
                 commitNow()
