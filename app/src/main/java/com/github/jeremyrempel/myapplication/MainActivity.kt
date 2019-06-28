@@ -7,7 +7,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // init dagger graph
-        val dagger = DaggerMyComponent.create()
+        val dagger: MyComponent = DaggerMyComponent.create()
 
         // needs to be called after super.onCreate
         supportFragmentManager.fragmentFactory = dagger.fragFactory()

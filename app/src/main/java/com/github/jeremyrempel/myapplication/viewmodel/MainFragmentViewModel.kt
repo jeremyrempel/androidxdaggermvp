@@ -9,9 +9,7 @@ import javax.inject.Inject
 /**
  * ViewModel with Async service
  */
-class ModelFragmentModel @Inject constructor(
-    myService: MyService
-) : ViewModel() {
+class MainFragmentViewModel @Inject constructor(myService: MyService) : ViewModel() {
 
     private val data: MutableLiveData<String> = MutableLiveData()
     private val isLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -25,6 +23,6 @@ class ModelFragmentModel @Inject constructor(
     fun isLoading(): LiveData<Boolean> = isLoading
 
     private fun handleError(error: Throwable) {
-
+        // log and show user an error
     }
 }

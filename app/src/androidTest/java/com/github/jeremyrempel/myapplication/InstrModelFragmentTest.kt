@@ -11,7 +11,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jeremyrempel.myapplication.fake.FakeViewModelFactory
-import com.github.jeremyrempel.myapplication.viewmodel.ModelFragmentModel
+import com.github.jeremyrempel.myapplication.viewmodel.MainFragmentViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -23,7 +23,7 @@ import org.junit.runner.RunWith
 class InstrModelFragmentTest {
 
     @MockK
-    private lateinit var fakeViewModel: ModelFragmentModel
+    private lateinit var fakeViewModel: MainFragmentViewModel
 
     @Before
     fun setUp() {
