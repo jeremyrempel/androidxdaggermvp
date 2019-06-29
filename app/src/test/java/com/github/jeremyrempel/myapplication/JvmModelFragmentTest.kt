@@ -31,15 +31,20 @@ class JvmModelFragmentTest {
     @Test
     fun `testFragmentUpdateData`() {
 
+        // mock the viewmodel behavior
         every { fakeViewModel.isLoading() } returns MutableLiveData(false)
         every { fakeViewModel.getData() } returns MutableLiveData("Hello World from Mock")
 
+        // use androidx.test to launch fragment in isolation and inject in mocked ViewModel
         launchFragmentInContainer<MainFragment>(
             Bundle.EMPTY,
             R.style.FragmentScenarioEmptyFragmentActivityTheme,
             FragFactoryFake(fakeViewModel)
         )
 
+        // verify results
+        onView(withId(R.id.loadingView))
+            .check(matches(withEffectiveVisibility(Visibility.GONE)))
         onView(withId(R.id.textView))
             .check(matches(withText("Hello World from Mock")))
     }
@@ -56,9 +61,9 @@ class JvmModelFragmentTest {
         )
 
         onView(withId(R.id.textView))
-            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.loadingView))
             .check(matches(withEffectiveVisibility(Visibility.GONE)))
+        onView(withId(R.id.loadingView))
+            .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
     internal class FragFactoryFake(private val viewModel: ViewModel) : FragmentFactory() {

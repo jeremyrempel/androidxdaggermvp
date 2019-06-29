@@ -29,8 +29,8 @@ class MainFragment
         })
 
         viewModel.isLoading().observe(this, Observer {
-            val visibility = if (it) View.GONE else View.VISIBLE
-            requireView().findViewById<View>(R.id.loadingView).visibility = visibility
+            requireView().findViewById<View>(R.id.loadingView).visibility = if (!it) View.GONE else View.VISIBLE
+            requireView().findViewById<TextView>(R.id.textView).visibility = if (it) View.GONE else View.VISIBLE
         })
     }
 
