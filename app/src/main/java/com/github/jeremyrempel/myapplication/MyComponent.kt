@@ -3,7 +3,7 @@ package com.github.jeremyrempel.myapplication
 import androidx.fragment.app.FragmentFactory
 import androidx.lifecycle.ViewModelProvider
 import com.github.jeremyrempel.myapplication.factory.MyFragmentFactory
-import com.github.jeremyrempel.myapplication.factory.MyModelFactory
+import com.github.jeremyrempel.myapplication.factory.MyViewModelFactory
 import dagger.Component
 import dagger.Module
 import dagger.Provides
@@ -24,7 +24,7 @@ interface MyComponent {
 @Module
 class MyFactoryModule {
     @Provides
-    fun providesModelFactory(modelFactory: MyModelFactory): ViewModelProvider.Factory = modelFactory
+    fun providesModelFactory(modelFactory: MyViewModelFactory): ViewModelProvider.Factory = modelFactory
 
     @Provides
     fun providesFragFactory(fragFactory: MyFragmentFactory): FragmentFactory = fragFactory

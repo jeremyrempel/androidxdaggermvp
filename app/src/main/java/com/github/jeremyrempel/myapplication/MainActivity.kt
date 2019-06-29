@@ -2,6 +2,7 @@ package com.github.jeremyrempel.myapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commitNow
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,13 +18,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().apply {
+            supportFragmentManager.commitNow {
                 val frag = supportFragmentManager.fragmentFactory.instantiate(
                     classLoader,
                     MainFragment::class.java.canonicalName
                 )
-                this.add(R.id.frag_container, frag)
-                commitNow()
+                add(R.id.frag_container, frag)
             }
         }
     }

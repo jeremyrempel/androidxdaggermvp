@@ -6,13 +6,13 @@ import com.github.jeremyrempel.myapplication.viewmodel.MainFragmentViewModel
 import javax.inject.Inject
 import javax.inject.Provider
 
-open class MyModelFactory @Inject constructor(
+class MyViewModelFactory @Inject constructor(
     private val mainFragModel: Provider<MainFragmentViewModel>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when (modelClass) {
             MainFragmentViewModel::class.java -> mainFragModel.get()
-            else -> TODO("not implemented")
+            else -> TODO("Missing viewModel $modelClass")
         } as T
     }
 }
